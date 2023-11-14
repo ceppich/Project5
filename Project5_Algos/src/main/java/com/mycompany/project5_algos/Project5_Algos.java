@@ -11,13 +11,16 @@ public class Project5_Algos {
     private static final String spaces = "                    ";
     
     public static void main(String[] args) {
+        //gather initial defining input
         Scanner inputScanner = new Scanner(System.in);
         int numIntersections = inputScanner.nextInt();
         int numRoads = inputScanner.nextInt();
         int numCities = inputScanner.nextInt();
         
+        //create map
         double [][] map = new double[numIntersections][numIntersections];
         
+        //gather all roads
         for (int i = 0; i < numRoads; i++){
             int intersection1 = inputScanner.nextInt();
             int intersection2 = inputScanner.nextInt();
@@ -25,14 +28,18 @@ public class Project5_Algos {
             map[intersection2][intersection1] = map[intersection1][intersection2];
         }
         
+        //create city list
         String [] cityList = new String[numIntersections];
         
+        //input scanner list
         for (int i = 0; i < numCities; i++){
             cityList[inputScanner.nextInt()] = inputScanner.next();
         }
         
+        //gather number of signs
         int numSigns = inputScanner.nextInt();
         
+        //create previous and best arrays
         double [][] best = new double[numIntersections][numIntersections];
         int [][] prev = new int[numIntersections][numIntersections];
                 
@@ -53,6 +60,7 @@ public class Project5_Algos {
             }
         }
         
+        //All-Pairs Shortest Paths with Floyd's Algo :)
         for (int k = 0; k < numIntersections; k++){
             for (int u = 0; u < numIntersections; u++){
                 for (int v = 0; v < numIntersections; v++){
@@ -63,9 +71,8 @@ public class Project5_Algos {
                 }
             }
         }
-        
-        
-        
+            
+        //use best and prev to make road signs
         for (int i = 0; i < numSigns; i++){
             int u = inputScanner.nextInt();
             int v = inputScanner.nextInt();
@@ -75,6 +82,7 @@ public class Project5_Algos {
             String[] output = new String[numIntersections];
             int[] distList = new int[numIntersections];
             
+            //determine which cities's shortest past come from current road
             for (int j = 0; j < numIntersections; j++) {
                 if (prev[j][u] == v) {
                     if (cityList[j] != null) {
@@ -86,6 +94,7 @@ public class Project5_Algos {
                 }
             }
             
+            //sort results for output of signs
             for (int j = numCitiesOnSign - 1; j >= 0; j--) {
                 for (int k = 0; k < j; k++) {
                     if (distList[k] > distList[k + 1]) {
@@ -99,6 +108,7 @@ public class Project5_Algos {
                 }
             }
             
+            //print output
             for (int j = 0; j < numCitiesOnSign; j++) {
                 System.out.println(output[j]);
             }
