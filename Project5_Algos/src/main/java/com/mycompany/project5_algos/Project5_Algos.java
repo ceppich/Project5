@@ -8,6 +8,8 @@ import java.util.Scanner;
  */
 public class Project5_Algos {
 
+    private static final String spaces = "                    ";
+    
     public static void main(String[] args) {
         Scanner inputScanner = new Scanner(System.in);
         int numIntersections = inputScanner.nextInt();
@@ -62,18 +64,43 @@ public class Project5_Algos {
             }
         }
         
+        
+        
         for (int i = 0; i < numSigns; i++){
             int u = inputScanner.nextInt();
             int v = inputScanner.nextInt();
             double dist = inputScanner.nextDouble();
             
+            int numCitiesOnSign = 0;
+            String[] output = new String[numIntersections];
+            int[] distList = new int[numIntersections];
+            
             for (int j = 0; j < numIntersections; j++) {
                 if (prev[j][u] == v) {
                     if (cityList[j] != null) {
                         int totalDist = (int)(best[u][j] + 0.5 - dist);
+                        output[numCitiesOnSign] = cityList[j] + spaces.substring(cityList[j].length()) + totalDist;
+                        distList[numCitiesOnSign++] = totalDist;
                         
                     }
                 }
+            }
+            
+            for (int j = numCitiesOnSign - 1; j >= 0; j--) {
+                for (int k = 0; k < j; k++) {
+                    if (distList[k] > distList[k + 1]) {
+                        int temp = distList[k];
+                        distList[k] = distList[k + 1];
+                        distList[k + 1] = temp;
+                        String tempString = output[k];
+                        output[k] = output[k + 1];
+                        output[k + 1] = tempString;
+                    }
+                }
+            }
+            
+            for (int j = 0; j < numCitiesOnSign; j++) {
+                System.out.println(output[j]);
             }
             System.out.println("");
         }
