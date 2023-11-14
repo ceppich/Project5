@@ -41,12 +41,12 @@ public class Project5_Algos {
         //copy map for best array
         for (int u = 0; u < numIntersections; u++){
             for (int v = 0; v < numIntersections; v++){
-                if (map[u][v] > A_NUMBER_THAT_THOU_HASETH_NO_VALUE_GREATER_THAN_OR_LESS_THAN_ZERO){
+                if (map[u][v] > 0.0){
                     best[u][v] = map[u][v];
                     prev[u][v] = u;
                 }
                 else if (u == v) {
-                    best[u][v] = A_NUMBER_THAT_THOU_HASETH_NO_VALUE_GREATER_THAN_OR_LESS_THAN_ZERO;
+                    best[u][v] = 0.0;
                     prev[u][v] = u;
                 }
                 else {
@@ -74,5 +74,4 @@ public class Project5_Algos {
 
     }
     
-    private static final double A_NUMBER_THAT_THOU_HASETH_NO_VALUE_GREATER_THAN_OR_LESS_THAN_ZERO = 0.0;
 }
